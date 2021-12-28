@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo async await</title>
+  </head>
+  <body>
+    <h1>Javascript async/ await</h1>
+    <div>Add new category</div>
+    <div><input type="text" name="" id="category-name" /></div>
+    <div><button onclick="addNewCategories()">Add</button></div>
+    <p id="demo"></p>
+    <script>
+      async function getCategoies() {
+        let myPromise = new Promise(function (resolve) {
+          let req = new XMLHttpRequest();
+          req.open(
+            "GET",
+            "http://127.0.0.1:8000/api/globals/lists?type=categories"
+          );
+          req.onload = function () {
+            if (req.status == 200) {
+              resolve(req.response);
+            } else {
+              resolve("File not Found");
+            }
+          };
+          req.send();
+        });
+        document.getElementById("demo").innerHTML = await myPromise;
+      }
+
+      const addNewCategories = async () => {
+        let myPromise = new Promise((resolve) => {
+          let req = new XMLHttpRequest();
+
+          let formData = new FormData();
+          let categoryName = document.getElementById("category-name").value;
+          formData.append("name", categoryName);
+
+          req.open("POST", "http://127.0.0.1:8000/api/admins/categories");
+          req.onload = () => {
+            if (req.status === 201) {
+              resolve(req.response);
+            } else {
+            }
+          };
+          req.send(formData);
+        });
+        await getCategoies();
+      };
+
+      getCategoies();
+    </script>
+  </body>
+</html>
