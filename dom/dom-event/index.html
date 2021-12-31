@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p id="p1">
+      This example uses the addEventListerner() method to attach a click event
+      to a button
+    </p>
+    <button id="myBtn">Try it</button>
+
+    <p id="demo"></p>
+    <script>
+      const removeP1 = () => {
+        document.getElementById("p1").remove();
+      };
+
+      document.getElementById("myBtn").addEventListener("click", removeP1);
+    </script>
+  </body>
+</html>

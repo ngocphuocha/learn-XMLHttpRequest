@@ -22,3 +22,4 @@ function handleLogin(event) {
     form.submit();
   }
 }
+const demo = 1;
